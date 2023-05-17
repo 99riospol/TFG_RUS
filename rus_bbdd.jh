@@ -1,0 +1,133 @@
+
+entity Usuario {
+	id Integer,
+    nombre String,
+    apellido String,
+  	email String,
+  	password String
+}
+
+entity Categoria {
+  	id Integer,
+  	nombre String,
+  	descripcion String
+}
+
+entity Ropa {
+  	id Integer,
+  	nombre String,
+  	precio BigDecimal,
+  	descripcion String
+}
+
+entity Color {
+  	id Integer,
+  	nombre String
+}
+
+entity Talla {
+  	id Integer,
+  	nombre String
+}
+
+entity RopaTalla {
+  	ropa Integer,
+  	talla Integer
+}
+
+entity Imagen {
+  	id Integer,
+  	nombreArchivo String
+}
+
+entity Promocion {
+  	id Integer,
+  	nombre String,
+  	porcentajeDescuento BigDecimal,
+  	fechaInicio LocalDate,
+  	fechaFin LocalDate
+}
+
+entity Comentario {
+  	id Integer,
+  	contenido String,
+  	calificacion Integer,
+  	fecha LocalDate
+}
+
+entity Carrito {
+  	id Integer
+}
+
+entity Cliente {
+  	id Integer,
+  	nombre String,
+  	apellido String,
+  	direccion String,
+  	telefono String
+}
+
+entity Favoritos {
+  	id Integer
+}
+
+entity Compra {
+  	id Integer,
+  	fecha LocalDate,
+  	total BigDecimal
+}
+
+entity DetalleCompra {
+  	id Integer,
+  	cantidad Integer,
+  	precioUnitario BigDecimal
+}
+
+entity MetodoPago {
+  	id Integer,
+  	nombre String,
+  	descripcion String
+}
+
+entity Envio {
+  	id Integer,
+  	direccionEntrega String,
+  	estado String
+}
+
+entity Contacto {
+  	id Integer,
+  	nombre String,
+  	email String,
+  	telefono String,
+  	socialNetworks String
+}
+
+entity Devolucion {
+  	id Integer,
+  	fecha LocalDate,
+  	motivo String,
+  	estado String
+}
+
+relationship ManyToOne {
+  	Ropa{categoria} to Categoria,
+  	Ropa{color} to Color,
+  	RopaTalla{ropa} to Ropa,
+  	RopaTalla{talla} to Talla,
+  	Imagen{ropa} to Ropa,
+  	Comentario{ropa} to Ropa,
+  	Comentario{usuario} to Usuario,
+  	Carrito{usuario} to Usuario,
+  	Carrito{ropa} to Ropa,
+  	Cliente{usuario} to Usuario,
+  	Favoritos{usuario} to Usuario,
+  	Favoritos{ropa} to Ropa,
+  	Compra{metodoPago} to MetodoPago,
+  	Compra{usuario} to Usuario,
+  	DetalleCompra{compra} to Compra,
+  	DetalleCompra{ropa} to Ropa,
+  	Envio{compra} to Compra,
+  	Contacto{usuario} to Usuario,
+  	Devolucion{compra} to Compra
+}
